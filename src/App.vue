@@ -1,26 +1,64 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <h1 class="title">Test work</h1>
+    <p class="subtitle">by Ivan Ramazanov</p>
+    <div class="choice">
+      <div class="choice__container" v-for="item in dataCheckbox" v-bind:key="item.id">
+        <input class="choice__checkbox" v-bind:id="item.id" type="checkbox" />
+        <label class="choice__label" v-bind:for="item.id">{{ item.text }}</label>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      dataCheckbox: [
+        { id: 1, text: 'button link' },
+        { id: 2, text: 'button multi-sized' },
+        { id: 3, text: 'button timer' },
+        { id: 4, text: 'button classic' },
+      ]
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.title {
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 20px;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.choice {
+  display: flex;
+}
+
+.choice__container {
+  display: flex;
+  align-items: center;
+  margin: 30px auto 0;
+}
+
+.choice__checkbox {
+  margin-right: 10px;
+}
+
+.choice__label:hover {
+  cursor: pointer;
 }
 </style>
