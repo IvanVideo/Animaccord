@@ -10,17 +10,17 @@
           {{ item.text }}</label>
       </div>
     </div>
-    <div>
+    <div class="content">
       <div v-if="btnStatus === 'btnLink'">
-        <Button :dataBtn="btnLink" />
+        <a><Button :dataBtn="btnLink" /></a>
       </div>
-      <div v-if="btnStatus === 'btnMulti'">
+      <div class="container" v-if="btnStatus === 'btnMulti'">
         <Button :dataBtn="btnMulti" />
       </div>
       <div v-if="btnStatus === 'btnTimer'">
         <Button :dataBtn="btnTimer" />
       </div>
-      <div v-if="btnStatus === 'btnClassic'">
+      <div class="container" v-if="btnStatus === 'btnClassic'">
         <Button :dataBtn="btnClassic" />
       </div>
     </div>
@@ -44,24 +44,24 @@ export default {
       ],
       btnLink: [{ id: 1, text: 'Напомнить PIN-код', className: 'btn-link' }],
       btnMulti: [
-        { id: 1, className: 'btn-multi' },
-        { id: 2, className: 'btn-multi' },
-        { id: 3, className: 'btn-multi' },
-        { id: 4, className: 'btn-multi' },
-        { id: 5, className: 'btn-multi' },
-        { id: 6, className: 'btn-multi' },
-        { id: 7, className: 'btn-multi' },
-        { id: 8, className: 'btn-multi' },
+        { id: 1, className: 'btn-multi btn-multi_first' },
+        { id: 2, className: 'btn-multi btn-multi_second' },
+        { id: 3, className: 'btn-multi btn-multi_third' },
+        { id: 4, className: 'btn-multi btn-multi_fourth' },
+        { id: 5, className: 'btn-multi btn-multi_fifth' },
+        { id: 6, className: 'btn-multi btn-multi_sixth' },
+        { id: 7, className: 'btn-multi btn-multi_seventh' },
+        { id: 8, className: 'btn-multi btn-multi_eighth' },
       ],
       btnTimer: [{ id: 1, text: 'Повторное письмо', className: 'btn-timer' }],
       btnClassic: [
         { id: 1, text: 'отправить письмо', className: 'btn-classic btn-classic_first' },
-        { id: 2, text: 'отправить письмо', className: 'btn-classic btn-classic_second'},
-        { id: 3, text: 'отправить письмо', className: 'btn-classic btn-classic_third'},
-        { id: 4, text: 'отправить письмо', className: 'btn-classic btn-classic_fourth'},
-        { id: 5, text: 'отправить письмо', className: 'btn-classic btn-classic_fifth'},
-        { id: 6, text: 'отправить письмо', className: 'btn-classic btn-classic_sixth'},
-        { id: 7, text: 'отправить письмо', className: 'btn-classic btn-classic_seventh'},
+        { id: 2, text: 'отправить письмо', className: 'btn-classic btn-classic_second' },
+        { id: 3, text: 'отправить письмо', className: 'btn-classic btn-classic_third' },
+        { id: 4, text: 'отправить письмо', className: 'btn-classic btn-classic_fourth' },
+        { id: 5, text: 'отправить письмо', className: 'btn-classic btn-classic_fifth' },
+        { id: 6, text: 'отправить письмо', className: 'btn-classic btn-classic_sixth' },
+        { id: 7, text: 'отправить письмо', className: 'btn-classic btn-classic_seventh' },
       ],
       checked: [],
       btnStatus: ''
@@ -103,6 +103,16 @@ export default {
   margin: 30px auto 0;
 }
 
+@media screen and (max-width: 620px) {
+  .choice {
+    flex-wrap: wrap;
+  }
+
+  .choice__container {
+    width: 150px;
+  }
+}
+
 .choice__radio {
   margin-right: 10px;
 }
@@ -113,5 +123,17 @@ export default {
 
 .choice__label:hover {
   cursor: pointer;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
 }
 </style>
