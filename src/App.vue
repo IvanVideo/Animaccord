@@ -4,25 +4,74 @@
     <p class="subtitle">by Ivan Ramazanov</p>
     <div class="choice">
       <div class="choice__container" v-for="item in dataCheckbox" v-bind:key="item.id">
-        <input class="choice__checkbox" v-bind:id="item.id" type="checkbox" />
-        <label class="choice__label" v-bind:for="item.id">{{ item.text }}</label>
+        <label class="choice__label" v-bind:for="item.id">
+          <input v-model="checked" class="choice__radio" v-bind:id="item.id" :value="item.value"
+            @click="getValueCheckbox" type="radio" />
+          {{ item.text }}</label>
+      </div>
+    </div>
+    <div>
+      <div v-if="btnStatus === 'btnLink'">
+        <Button :dataBtn="btnLink" />
+      </div>
+      <div v-if="btnStatus === 'btnMulti'">
+        <Button :dataBtn="btnMulti" />
+      </div>
+      <div v-if="btnStatus === 'btnTimer'">
+        <Button :dataBtn="btnTimer" />
+      </div>
+      <div v-if="btnStatus === 'btnClassic'">
+        <Button :dataBtn="btnClassic" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Button from './components/v-button.vue';
 
 export default {
+  components: {
+    Button,
+  },
   data() {
     return {
       dataCheckbox: [
-        { id: 1, text: 'button link' },
-        { id: 2, text: 'button multi-sized' },
-        { id: 3, text: 'button timer' },
-        { id: 4, text: 'button classic' },
-      ]
+        { id: 1, text: 'button link', value: 'btnLink' },
+        { id: 2, text: 'button multi-sized', value: 'btnMulti' },
+        { id: 3, text: 'button timer', value: 'btnTimer' },
+        { id: 4, text: 'button classic', value: 'btnClassic' },
+      ],
+      btnLink: [{ id: 1, text: 'Напомнить PIN-код', className: 'btn-link' }],
+      btnMulti: [
+        { id: 1, className: 'btn-multi' },
+        { id: 2, className: 'btn-multi' },
+        { id: 3, className: 'btn-multi' },
+        { id: 4, className: 'btn-multi' },
+        { id: 5, className: 'btn-multi' },
+        { id: 6, className: 'btn-multi' },
+        { id: 7, className: 'btn-multi' },
+        { id: 8, className: 'btn-multi' },
+      ],
+      btnTimer: [{ id: 1, text: 'Повторное письмо', className: 'btn-timer' }],
+      btnClassic: [
+        { id: 1, text: 'отправить письмо', className: 'btn-classic btn-classic_first' },
+        { id: 2, text: 'отправить письмо', className: 'btn-classic btn-classic_second'},
+        { id: 3, text: 'отправить письмо', className: 'btn-classic btn-classic_third'},
+        { id: 4, text: 'отправить письмо', className: 'btn-classic btn-classic_fourth'},
+        { id: 5, text: 'отправить письмо', className: 'btn-classic btn-classic_fifth'},
+        { id: 6, text: 'отправить письмо', className: 'btn-classic btn-classic_sixth'},
+        { id: 7, text: 'отправить письмо', className: 'btn-classic btn-classic_seventh'},
+      ],
+      checked: [],
+      btnStatus: ''
     }
+  },
+  methods: {
+    getValueCheckbox(e) {
+      this.btnStatus = e.target.value;
+      console.log(e.target.value, '-----')
+    },
   }
 }
 </script>
@@ -54,8 +103,12 @@ export default {
   margin: 30px auto 0;
 }
 
-.choice__checkbox {
+.choice__radio {
   margin-right: 10px;
+}
+
+.choice__radio:hover {
+  cursor: pointer;
 }
 
 .choice__label:hover {
