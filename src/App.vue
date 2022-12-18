@@ -18,7 +18,7 @@
         <Button :dataBtn="btnMulti" />
       </div>
       <div v-if="btnStatus === 'btnTimer'">
-        <Button :dataBtn="btnTimer" />
+        <Button :dataBtn="btnTimer" :timerBtn="timer" :timeMin="time" />
       </div>
       <div class="container" v-if="btnStatus === 'btnClassic'">
         <Button :dataBtn="btnClassic" />
@@ -64,7 +64,9 @@ export default {
         { id: 7, text: 'отправить письмо', className: 'btn-classic btn-classic_seventh' },
       ],
       checked: [],
-      btnStatus: ''
+      btnStatus: '',
+      timer: true,
+      time: 180
     }
   },
   methods: {

@@ -1,29 +1,71 @@
 <template>
     <div class="container">
-        <button v-for="item in dataBtn" v-bind:key="item.id" :class="item.className" @click="getValue">{{ item.text
-        }}</button>
+        <div class="btnContainer">
+            <button v-for="item in dataBtn" v-bind:key="item.id" :class="item.className" @click="getValue">{{ item.text
+            }}</button>
+            <div class="timer" v-if="timerBtn">{{ timer(time) }}</div>
+        </div>
     </div>
 </template>
   
 <script>
 
 export default {
+    data() {
+        return {
+            running: true,
+            time: 180,
+        }
+    },
     props: {
         dataBtn: {
             type: Array,
             required: true,
         },
-        link: {
+        timerBtn: {
             type: Boolean,
-            default: true,
+            required: true,
+        },
+        timeMin: {
+            type: Number,
+            required: true,
         }
     },
     methods: {
         getValue(e) {
-            if (e.target.className === 'btn-link') {
-                const btn = document.getElementsByClassName('btn-link');
-                console.log(btn, '++++')
+            if (e.target.className === 'btn-timer') {
+                this.startTimer()
             }
+            if (e.target.className === 'btn-link') {
+                console.log(e.target.color,'213123')
+                this.isActive = true
+            }
+
+        },
+        timer(duration) {
+            let hrs = ~~(duration / 3600);
+            let mins = ~~((duration % 3600) / 60);
+            let secs = ~~duration % 60;
+
+            let ret = "";
+
+            if (hrs > 0) {
+                ret += "" + hrs + ":" + (mins < 10 ? "0" : "");
+            }
+            ret += "" + mins + ":" + (secs < 10 ? "0" : "");
+            ret += "" + secs;
+            return ret;
+        },
+        startTimer() {
+            let interval;
+            if (this.running) {
+                interval = setInterval(() => {
+                    this.time = this.time - 1;
+                }, 1000);
+            } else if (!this.running) {
+                clearInterval(interval);
+            }
+            return () => clearInterval(interval);
         },
     }
 }
@@ -135,6 +177,8 @@ export default {
     font-weight: 400;
     font-size: 18px;
     line-height: 24px;
+    text-align: left;
+    padding-left: 40px;
     color: #767679;
     background-color: #EFEFEF;
     border: none;
@@ -191,6 +235,34 @@ export default {
 
 .btn-classic_seventh {
     background-color: #ED732E;
+}
+
+.btnContainer {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.timer {
+    position: absolute;
+    right: 46px;
+    top: 13px;
+    font-family: 'Phosphate';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    width: 54px;
+    height: 26px;
+    background-color: #DF3F3E;
+    border-radius: 10px;
+    color: #fff;
+}
+
+.isActive {
+    color: #C4296C;
 }
 </style>
   
