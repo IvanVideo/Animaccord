@@ -1,7 +1,9 @@
 <template>
     <div class="container">
         <div class="btnContainer">
-            <button v-for="item in dataBtn" v-bind:key="item.id" :class="item.className" @click="getValue">{{ item.text
+            <!-- <button :disabled="disabled" v-for="item in dataBtn" v-bind:key="item.id" :class="item.className" @click="getValue">{{ item.text
+            }}</button> -->
+            <button :disabled="disabled" v-for="item in dataBtn" v-bind:key="item.id" :class="(classLink)?`${item.className}`:'btn-link_passed'" @click="getValue">{{ item.text
             }}</button>
             <div class="timer" v-if="timerBtn">{{ timer(time) }}</div>
         </div>
@@ -15,6 +17,8 @@ export default {
         return {
             running: true,
             time: 180,
+            disabled: false,
+            classLink: true
         }
     },
     props: {
@@ -34,10 +38,12 @@ export default {
     methods: {
         getValue(e) {
             if (e.target.className === 'btn-timer') {
+                this.disabled = true
                 this.startTimer()
             }
             if (e.target.className === 'btn-link') {
-                console.log(e.target.color,'213123')
+                console.log(e.target.classList,'213123')
+                this.classLink = false
                 this.isActive = true
             }
 
@@ -84,6 +90,16 @@ export default {
     font-family: 'Nunito', sans-serif;
     font-size: 16px;
     line-height: 18px;
+}
+
+.btn-link_passed {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    line-height: 18px;
+    color: #C4296C;
 }
 
 .btn-link:hover {
